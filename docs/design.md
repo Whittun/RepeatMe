@@ -13,7 +13,7 @@ These are visual references. The application uses its own CSS Modules rather tha
 
 ## Assets and typography
 
-- [Tiny5](https://github.com/google/fonts/tree/main/ofl/tiny5) provides pixel headings and numbers, including Cyrillic. It is bundled locally in `apps/web/src/assets/fonts`; its SIL Open Font License is included as `OFL.txt`.
+- [Russo One](https://github.com/google/fonts/tree/main/ofl/russoone) provides detailed, angular game-style headings and numbers, including Cyrillic. It is bundled locally in `apps/web/src/assets/fonts`; its SIL Open Font License is included as `OFL-RussoOne.txt`. Small labels use a system monospace font to keep the retro feel without coarse pixel lettering.
 - Body text, review criteria, and Markdown use a system sans-serif font for readability. Code uses a monospace font.
 - `PixelIcons.tsx`, `PixelScene.tsx`, and `public/favicon.svg` contain original SVG artwork on a consistent pixel grid.
 

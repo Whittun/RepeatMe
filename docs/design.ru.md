@@ -13,7 +13,7 @@ RepeatMe использует пиксельный интерфейс: оран�
 
 ## Графика и шрифты
 
-- [Tiny5](https://github.com/google/fonts/tree/main/ofl/tiny5) — пиксельные заголовки и числа с поддержкой кириллицы. Шрифт хранится локально в `apps/web/src/assets/fonts`; лицензия SIL Open Font License приложена в `OFL.txt`.
+- [Russo One](https://github.com/google/fonts/tree/main/ofl/russoone) — детальные угловатые заголовки и числа в игровом стиле с поддержкой кириллицы. Шрифт хранится локально в `apps/web/src/assets/fonts`; лицензия SIL Open Font License приложена в `OFL-RussoOne.txt`. Небольшие подписи используют системный моноширинный шрифт: ретро-характер сохраняется без грубой пикселизации букв.
 - Основной текст, критерии и Markdown используют системный шрифт для удобства чтения. Код — моноширинный.
 - `PixelIcons.tsx`, `PixelScene.tsx` и `public/favicon.svg` содержат оригинальную SVG-графику на единой пиксельной сетке.
 
