@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { ArrowRight, Check, Eye, X, CheckCheck } from 'lucide-react';
+import { ArrowRight, Check, Eye, X, CheckCheck } from './PixelIcons';
 import { api } from './api';
 import { type Card, type Attempt, formatDate } from './types';
 import { Material, Sources } from './CardView';

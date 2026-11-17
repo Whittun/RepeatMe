@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { X, Plus, Trash2 } from 'lucide-react';
+import { X, Plus, Trash2 } from './PixelIcons';
 import { api } from './api';
 import type { Category, Card, Source } from './types';
 import { categoryPath } from './types';
@@ -40,7 +40,7 @@ export function Editor({ type, item, categories, parentId, onClose, onSaved }: {
     try { await api(`${type === 'card' ? 'cards' : 'categories'}/${item!.id}`, 'DELETE'); await onSaved(); onClose(); }
     catch (e) { setError((e as Error).message); } finally { setBusy(false); }
   }
-  return <Modal title={`${item ? 'Редактировать' : 'Новая'} ${type === 'card' ? 'карточка' : 'категория'}`} onClose={() => { if (!busy) onClose(); }}><form onSubmit={save} className={s.form}>
+  return <Modal title={item ? `Редактирование ${type === 'card' ? 'карточки' : 'категории'}` : `Новая ${type === 'card' ? 'карточка' : 'категория'}`} onClose={() => { if (!busy) onClose(); }}><form onSubmit={save} className={s.form}>
     <label>Название <span>*</span><input autoFocus required maxLength={200} value={name} onChange={e => setName(e.target.value)} placeholder={type === 'card' ? 'Что вы хотите запомнить?' : 'Например, Разработка'}/></label>
     <label>{type === 'card' ? 'Категория' : 'Родительская категория'}<select value={parent} onChange={e => setParent(e.target.value)}><option value="">Корень карты</option>{categories.filter(c => !blocked(c)).map(c => <option key={c.id} value={c.id}>{categoryPath(categories, c.id)}</option>)}</select></label>
     {type === 'card' && <><label>Критерии проверки<textarea value={criteria} maxLength={20000} onChange={e => setCriteria(e.target.value)} placeholder="Какие вопросы нужно объяснить? Какую задачу решить?" rows={3}/></label>

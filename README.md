@@ -42,4 +42,4 @@ npm run test:http         # Requires a running API; cleans up its test records
 
 Connection settings are in the root `.env`. If you change the API `PORT`, update the proxy in `apps/web/vite.config.ts` as well.
 
-Read more: [development documentation](docs/development.md), [MVP specification](docs/RepeatMe_MVP_spec.md).
+Read more: [development documentation](docs/development.md), [MVP specification](docs/RepeatMe_MVP_spec.md), [visual direction and references](docs/design.md).

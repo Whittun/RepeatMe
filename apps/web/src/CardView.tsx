@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Pencil, Play, ExternalLink } from 'lucide-react';
+import { Pencil, Play, ExternalLink } from './PixelIcons';
 import { api } from './api';
 import { type Card, type Category, type Attempt, formatDate, categoryPath } from './types';
 import { Status } from './Overview';

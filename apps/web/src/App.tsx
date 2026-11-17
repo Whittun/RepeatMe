@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowRight, ChevronRight, RefreshCw } from 'lucide-react';
+import { ArrowRight, ChevronRight, RefreshCw, BookOpen } from './PixelIcons';
 import { api } from './api';
 import { Sidebar } from './Sidebar';
 import { Overview, Status } from './Overview';
@@ -37,7 +37,7 @@ export default function App() {
   }
   return <div className={s.app}>
     {data ? <Sidebar data={data} categoryId={categoryId} cardId={cardId} onCategory={selectCategory} onCard={c => setCardId(c.id)} onCreate={type => setEditor({ type })}/> : <aside className={s.sidebar}><h2>RepeatMe</h2><p className={s.muted}>Карта ваших знаний</p></aside>}
-    <main className={s.main}><header className={s.topbar}><div>Моя карта <ChevronRight size={14}/><span>{session ? 'Повторение' : card ? 'Карточка' : category?.name ?? 'Обзор'}</span></div><div><span className={s.localDot}/>Личное пространство <span className={s.avatar}>Я</span></div></header>
+    <main className={s.main}><header className={s.topbar}><div><BookOpen size={16}/>Моя карта <ChevronRight size={12}/><span>{session ? 'Повторение' : card ? 'Карточка' : category?.name ?? 'Обзор'}</span></div><div><span className={s.localDot}/>Личное пространство <span className={s.avatar}>Я</span></div></header>
       <div className={s.content}>{error && <div className={s.error} role="alert">{error}<button onClick={() => void load()}><RefreshCw size={16}/>Повторить</button>{categoryId && <button onClick={() => selectCategory(null)}>В общий обзор</button>}</div>}
       {!data ? <section className={s.empty}><h1>{loading ? 'Открываем вашу карту…' : 'Не удалось загрузить карту'}</h1><p className={s.muted}>Для работы нужны запущенные API и PostgreSQL.</p></section> : session ? <Review cards={session} onExit={() => { setSession(null); void load(); }}/>
         : <div aria-busy={loading} className={loading ? s.loading : ''}>{card ? <CardView key={`${card.id}-${card.streak}-${card.nextReview}`} card={card} categories={data.categories} onEdit={() => setEditor({ type: 'card', item: card })} onReview={() => setSession([card])}/> : <Overview data={data} categoryId={categoryId} onCategory={selectCategory} onCard={c => setCardId(c.id)} onCreate={type => setEditor({ type })} onEdit={() => setEditor({ type: 'category', item: category })} onReview={start} onQueue={() => setQueueOpen(true)}/>}</div>}

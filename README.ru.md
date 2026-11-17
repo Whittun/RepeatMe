@@ -42,4 +42,4 @@ npm run test:http         # Нужен запущенный API; тестовы�
 
 Настройки подключения — в корневом `.env`. При изменении `PORT` API обновите прокси в `apps/web/vite.config.ts`.
 
-Подробнее: [документация разработки](docs/development.ru.md), [ТЗ MVP](docs/RepeatMe_MVP_spec.ru.md).
+Подробнее: [документация разработки](docs/development.ru.md), [ТЗ MVP](docs/RepeatMe_MVP_spec.ru.md), [визуальный стиль и референсы](docs/design.ru.md).

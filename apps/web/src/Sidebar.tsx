@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BookOpen, ChevronDown, ChevronRight, Folder, LayoutDashboard, Plus, Layers } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronRight, Folder, LayoutDashboard, Plus, Layers } from './PixelIcons';
 import type { Snapshot, Card, Category } from './types';
 import { labels } from './types';
 import { Distribution } from './Overview';
@@ -23,12 +23,13 @@ export function Sidebar({ data, categoryId, cardId, onCategory, onCard, onCreate
     </div>;
   }
   return <aside className={s.sidebar}>
-    <a className={s.brand} href="#" onClick={e => { e.preventDefault(); onCategory(null); }}><span className={s.brandIcon}><Layers size={23}/></span>RepeatMe<span className={s.beta}>MVP</span></a>
-    <p className={s.tagline}>Знания, которые остаются.</p>
+    <a className={s.brand} href="#" onClick={e => { e.preventDefault(); onCategory(null); }}><span className={s.brandIcon}><BookOpen size={25}/></span>RepeatMe<span className={s.beta}>BETA</span></a>
+    <p className={s.tagline}>СОХРАНИ. ВСПОМНИ. ПОВТОРИ.</p>
+    <div className={s.libraryBadge}><span className={s.libraryAvatar}><Layers size={24}/></span><div><strong>Личная библиотека</strong><span>{data.cards.length} карточек в коллекции</span></div></div>
     <button className={`${s.overviewLink} ${!categoryId && !cardId ? s.selected : ''}`} onClick={() => onCategory(null)}><LayoutDashboard size={18}/>Общий обзор</button>
     <div className={s.sidebarTitle}>МОЯ КАРТА <button aria-label="Добавить категорию" onClick={() => onCreate('category')}><Plus size={17}/></button></div>
     <nav aria-label="Карта знаний" className={s.tree}>{data.categories.filter(c => !c.parentId).map(branch)}{data.cards.filter(c => !c.categoryId).map(cardRow)}{!data.cards.length && !data.categories.length && <p className={s.muted}>Здесь появятся ваши темы</p>}</nav>
     <button className={s.addCard} onClick={() => onCreate('card')}><Plus size={18}/>Добавить карточку</button>
-    <div className={s.sidebarFoot}><BookOpen size={18}/><div>Маленькими шагами.<br/><span>К прочным знаниям.</span></div></div>
+    <div className={s.sidebarFoot}><BookOpen size={22}/><div>НЕ ДАЙ ЗНАНИЯМ ИСЧЕЗНУТЬ<br/><span>Следующий ход — за вами.</span></div></div>
   </aside>;
 }
