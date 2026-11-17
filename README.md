@@ -1,14 +1,16 @@
-﻿# RepeatMe
+﻿English | [Русский](README.ru.md)
 
-Карта знаний с карточками и интервальным повторением. Монорепозиторий на **npm workspaces** с общими командами и одним `package-lock.json`.
+# RepeatMe
+
+A personal knowledge map with self-assessment cards and spaced repetition. An **npm workspaces monorepo** with shared root commands and a single `package-lock.json`. The MVP interface is in Russian.
 
 - `apps/web` — React, TypeScript, Vite, CSS Modules.
 - `apps/api` — NestJS, TypeORM, PostgreSQL.
-- `docs` — ТЗ и подробная документация.
+- `docs` — MVP specification and development documentation.
 
-## Первый запуск
+## First run
 
-Нужны Node.js **22.18+**, npm и запущенный Docker Desktop (Linux containers). Все команды выполняются из корня проекта:
+Requires Node.js **22.18+**, npm, and Docker Desktop running Linux containers. Run all commands from the repository root:
 
 ```powershell
 Copy-Item .env.example .env
@@ -18,26 +20,26 @@ npm run db:migrate
 npm run dev
 ```
 
-Frontend: **http://127.0.0.1:5173** (если порт занят, Vite покажет другой адрес в терминале). API: **http://127.0.0.1:3001/api**. Frontend обращается к API через Vite-прокси.
+Frontend: **http://127.0.0.1:5173** (if the port is busy, Vite prints an alternative address). API: **http://127.0.0.1:3001/api**. The frontend accesses the API through the Vite proxy.
 
-## Повторный запуск и остановка
+## Start again and stop
 
 ```powershell
 docker compose up -d --wait
 npm run dev
 ```
 
-Остановка приложения — **Ctrl+C**, базы — `docker compose stop`. Данные PostgreSQL сохраняются в Docker volume. Запускайте только один экземпляр `npm run dev`: второй API получит ошибку `EADDRINUSE` на порту 3001.
+Stop the application with **Ctrl+C** and the database with `docker compose stop`. PostgreSQL data persists in a Docker volume. Run only one `npm run dev` instance at a time: a second API instance fails with `EADDRINUSE` on port 3001.
 
-## Сборка и проверки
+## Build and checks
 
 ```powershell
-npm run build             # Сборка frontend и backend
-npm test                  # Правила повторения и даты
-npm run test:integration  # Нужна работающая БД; создаётся отдельная тестовая БД
-npm run test:http         # Нужен запущенный API; тестовые объекты очищаются
+npm run build             # Build frontend and backend
+npm test                  # Review rules and date boundaries
+npm run test:integration  # Requires PostgreSQL; uses a separate test database
+npm run test:http         # Requires a running API; cleans up its test records
 ```
 
-Настройки подключения — в корневом `.env`. При изменении `PORT` API обновите прокси в `apps/web/vite.config.ts`.
+Connection settings are in the root `.env`. If you change the API `PORT`, update the proxy in `apps/web/vite.config.ts` as well.
 
-Подробнее: [документация разработки](docs/development.md), [ТЗ MVP](docs/RepeatMe_MVP_spec.md).
+Read more: [development documentation](docs/development.md), [MVP specification](docs/RepeatMe_MVP_spec.md).

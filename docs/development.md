@@ -1,34 +1,36 @@
-# RepeatMe
+﻿English | [Русский](development.ru.md)
 
-Локальная карта знаний с карточками и самостоятельными проверками. React + TypeScript + Vite + CSS Modules; NestJS + TypeORM + PostgreSQL. Данные и история хранятся на сервере, интерфейс на русском.
+# RepeatMe development
 
-## Запуск
+A local knowledge map with cards and self-assessment reviews. React + TypeScript + Vite + CSS Modules; NestJS + TypeORM + PostgreSQL. Data and review history are stored on the backend. The interface is in Russian.
 
-Нужны Node.js 22.18+ и запущенный Docker Desktop с Linux containers. Выполнять из корня проекта:
+## Run locally
+
+Requires Node.js 22.18+ and Docker Desktop running Linux containers. Run from the repository root:
 
 ```powershell
 Copy-Item .env.example .env
-npm install
+npm ci
 docker compose up -d --wait
 npm run db:migrate
 npm run dev
 ```
 
-Открыть http://localhost:5173. API: http://localhost:3001/api. Оба сервера доступны только на локальном компьютере. Vite проксирует `/api` на порт 3001. При изменении порта API поправьте также `apps/web/vite.config.ts`. `.env` читается из корня проекта.
+Open http://127.0.0.1:5173, or the address printed by Vite if that port is busy. API: http://127.0.0.1:3001/api. Both servers bind to the local computer. Vite proxies `/api` to port 3001. If you change the API port, also update `apps/web/vite.config.ts`. The backend reads `.env` from the repository root.
 
-Остановка приложения: Ctrl+C. Остановка БД: `docker compose stop`. Данные сохраняются в Docker volume `repeatme_pg`. Перезапуск БД: `docker compose up -d --wait`.
+Stop the application with Ctrl+C. Stop PostgreSQL with `docker compose stop`; data persists in the Docker volume. Start the database again with `docker compose up -d --wait`. Run only one application instance to avoid a port 3001 conflict.
 
-## Работа
+## Workflow
 
-1. Создайте категорию или карточку: достаточно названия. Карточку можно оставить в корне.
-2. При необходимости добавьте вложенные темы, критерии, ссылки и материал в Markdown. Есть предпросмотр, произвольный HTML не исполняется.
-3. Начните повторение всего дерева или выбранной ветки. Вспомните тему, откройте материал или источники и выберите «Помню» / «Не помню».
-4. После подтверждения сервером показана следующая дата. Перейдите к следующей карточке. В конце — итог; занятие можно завершить раньше.
-5. Для проверки до срока откройте карточку и нажмите «Проверить себя». Перемещение доступно через выбор категории в редакторе; история сохраняется. Удаляется только пустая категория. При удалении карточки её история удаляется после подтверждения.
+1. Create a category or card; a title is enough. Cards can also live at the root.
+2. Optionally add nested categories, review criteria, source links, and Markdown material. The editor has a preview; arbitrary HTML is not executed.
+3. Start a review for the whole map or a selected branch. Recall the topic, check the material or sources, and choose “Помню” (Remember) or “Не помню” (Do not remember).
+4. After the server confirms the result, the next review date is displayed. Continue to the next card. A summary appears at the end; you may also end the session early.
+5. To review a card ahead of schedule, open it and select “Проверить себя” (Test yourself). Move cards by changing their category in the editor; history is preserved. Only empty categories can be deleted. Deleting a card also deletes its review history after confirmation.
 
-Правила в `apps/api/src/rules.ts`: интервалы 1 / 3 / 7 / 14 / 30 дней, затем 30; ошибка сбрасывает серию и назначает завтра. Все календарные дни — Europe/Moscow, история — timestamptz. Просрочка независима от закреплённости. Состояния, очередь и статистику вычисляет backend. Новые карточки входят в очередь сразу. Это настройки прототипа, а не научная модель памяти.
+Rules live in `apps/api/src/rules.ts`: intervals of 1 / 3 / 7 / 14 / 30 days, then 30 days. A failed review resets the streak and schedules the next review for tomorrow. Calendar days use Europe/Moscow; history timestamps use `timestamptz`. Being overdue does not change a card's knowledge state. The backend calculates states, queues, and statistics. New cards enter the queue immediately. These are prototype settings, not a scientific memory model.
 
-## Проверки
+## Checks
 
 ```powershell
 npm run build
@@ -37,26 +39,26 @@ npm run test:integration
 npm run test:http
 ```
 
-Интеграционный тест требует PostgreSQL по `DATABASE_URL` и права создания БД (есть у пользователя из Compose). Он создаёт отдельную БД с уникальным именем и удаляет её в конце; рабочие данные не затрагивает. Проверяет миграции и откат, циклы, вложенную статистику, запрет удаления непустых категорий, атомарность сохранения, повторную отправку, перенос с историей и сброс серии.
+The integration test requires PostgreSQL at `DATABASE_URL` and permission to create databases (provided by the Compose user). It creates a uniquely named test database and drops it afterward, leaving application data untouched. It checks migrations and rollback, category cycles, nested statistics, nonempty category deletion, atomic writes, request retries, moving cards with history, and streak resets.
 
-HTTP smoke-тест требует запущенный API. Создаёт собственную категорию и карточку, проверяет сценарий сохранения и очищает только созданные тестом объекты. Это не замена визуальной проверке в браузере.
+The HTTP smoke test requires a running API. It creates its own category and card, checks the persistence workflow, and cleans up only those test objects. It does not replace visual browser verification.
 
-Сборки: `apps/api/dist`, `apps/web/dist`. После сборки API запускается `npm run start -w @repeatme/api`, веб для локального просмотра — `npm run preview -w @repeatme/web`. Для постоянной отдачи frontend нужен статический сервер с проксированием `/api`.
+Build outputs: `apps/api/dist` and `apps/web/dist`. After building, start the API with `npm run start -w @repeatme/api`. Use `npm run preview -w @repeatme/web` to preview the frontend build locally. A permanent frontend deployment needs a static server with `/api` proxying.
 
-Миграции применяются явно; автоматическое изменение схемы выключено. `npm run db:revert` откатывает последнюю миграцию (для начальной схемы это удаление таблиц — использовать только осознанно).
+Migrations are applied explicitly; automatic schema synchronization is disabled. `npm run db:revert` reverts the latest migration. Reverting the initial migration deletes the application tables.
 
 ## API
 
-- `GET /api/snapshot?categoryId=<uuid>` — дерево, карточки, распределения и очередь области; без параметра весь проект.
+- `GET /api/snapshot?categoryId=<uuid>` — the tree, cards, state distributions, and queue for a branch; omit the parameter for the entire project.
 - `POST /api/categories`, `PUT /api/categories/:id` — `{ name, parentId? }`.
-- `DELETE /api/categories/:id` — только пустая категория.
-- `POST /api/cards`, `PUT /api/cards/:id` — `{ title, categoryId?, criteria?, explanation?, sources?: [{ label, url }] }`. PUT заменяет редактируемые поля, сохраняя расписание и историю.
-- `DELETE /api/cards/:id` — карточка с историей.
-- `GET /api/cards/:id/history` — попытки от новых к старым.
-- `POST /api/cards/:id/reviews` — `{ remembered: boolean, requestId: UUID }`. Один UUID на одну попытку; при сетевой ошибке повторить тот же запрос с тем же UUID. Запись попытки и расписания — одна транзакция с блокировкой строки.
+- `DELETE /api/categories/:id` — deletes an empty category only.
+- `POST /api/cards`, `PUT /api/cards/:id` — `{ title, categoryId?, criteria?, explanation?, sources?: [{ label, url }] }`. PUT replaces editable fields while preserving the schedule and history.
+- `DELETE /api/cards/:id` — deletes a card and its history.
+- `GET /api/cards/:id/history` — attempts, newest first.
+- `POST /api/cards/:id/reviews` — `{ remembered: boolean, requestId: UUID }`. Use one UUID per attempt; on a network error, retry the same payload with the same UUID. Recording the attempt and updating the schedule happen in one transaction with a row lock.
 
-## Структура и границы
+## Structure and scope
 
-`apps/api/src`: три сущности, controller/service, правила, DTO и миграция. `apps/web/src`: дерево, обзор, карточка, формы и повторение; состояние в React, без отдельного store. База при первом запуске пустая.
+`apps/api/src` contains three entities, a controller/service, rules, DTOs, and a migration. `apps/web/src` contains the tree, overview, card view, forms, and review session. State lives in React without a separate store. The initial database is empty.
 
-Вне MVP: авторизация, сохранённые группы, canvas, интеграции с ИИ/Obsidian, импорт, уведомления, аудио и совместная работа. Внешние источники открываются ссылками; их содержимое не скачивается.
+Outside the MVP: authentication, saved groups, a canvas map, AI/Obsidian integrations, imports, notifications, audio, and collaboration. External sources open as links; their content is not downloaded.

@@ -1,106 +1,108 @@
-# RepeatMe — ТЗ первого прототипа
+﻿English | [Русский](RepeatMe_MVP_spec.ru.md)
 
-Дата: 17 ноября 2026. Задание для coding-агента. Реализовать небольшой работающий fullstack-прототип; сохранять простоту и удобство последующего изменения концепта.
+# RepeatMe — first prototype specification
 
-## 1. Суть
+Date: November 17, 2026. Brief for a coding agent: implement a small working fullstack prototype, keeping it simple and easy to adapt as the concept evolves.
 
-RepeatMe — карта тем с карточками для самостоятельной проверки знаний и интервального повторения. Пользователь получает знания в чатах с ИИ, Obsidian, статьях, видео и собственном коде. Он сохраняет тему, источники и критерии проверки, проверяет себя удобным способом и отмечает «Помню» / «Не помню». Приложение хранит историю, назначает следующую проверку и визуально показывает закреплённость знаний.
+## 1. Concept
 
-Материал может полностью оставаться во внешнем источнике. Подробная заметка и готовый ответ необязательны. Проверку через ИИ пользователь выполняет самостоятельно; интеграция с моделями в эту версию не входит.
+RepeatMe is a topic map with cards for self-assessment and spaced repetition. Users learn through AI chats, Obsidian, articles, videos, and their own code. They save a topic, its sources, and review criteria, test themselves in a convenient way, and choose “Remember” or “Do not remember.” The application stores review history, schedules the next review, and visualizes how knowledge is being reinforced.
 
-## 2. Стек и границы
+Learning material may remain entirely in an external source. Detailed notes and prepared answers are optional. Users perform any AI-assisted assessment themselves; model integrations are outside this version.
+
+## 2. Stack and constraints
 
 - Frontend: React, TypeScript, Vite, CSS Modules.
 - Backend: NestJS, TypeORM, PostgreSQL.
-- Один пользователь, без регистрации и авторизации. Локальный запуск прототипа.
-- Данные сохраняются через backend в PostgreSQL, включая историю проверок.
-- Русский интерфейс, основной сценарий — браузер на компьютере.
-- Предоставить .env.example, миграции, Docker Compose для БД и короткий README с командами запуска.
-- Если репозиторий уже существует, сначала изучить его инструкции и переиспользовать принятые решения.
+- One user, without registration or authentication. Run the prototype locally.
+- Persist data through the backend in PostgreSQL, including review history.
+- Russian interface, primarily for desktop browsers.
+- Provide `.env.example`, migrations, Docker Compose for the database, and a short README with startup commands.
+- If a repository already exists, inspect its instructions first and reuse its established conventions.
 
-## 3. Структура знаний
+## 3. Knowledge structure
 
-Есть вложенные категории и карточки. Например: Разработка → JavaScript → Асинхронность → карточка Promise. Верхнеуровневых категорий может быть сколько угодно. Категория может содержать подкатегории и карточки одновременно. Карточка — конечный проверяемый элемент.
+Use nested categories and cards. For example: Development → JavaScript → Asynchronous programming → Promise card. There may be any number of top-level categories. A category may contain both subcategories and cards. A card is the final reviewable item.
 
-Категория: название, родительская категория или корень. Собственных проверок у категории нет: её показатели рассчитываются по всем карточкам внутри ветки.
+A category has a name and an optional parent category. Categories have no reviews of their own: their statistics are calculated from all cards in the branch.
 
-Карточка:
+A card contains:
 
-- название темы — обязательно;
-- категория — необязательно, можно быстро сохранить карточку в корне;
-- пояснение в Markdown — необязательно;
-- источники: список подписей и ссылок, включая внешние чаты и заметки;
-- критерии проверки: свободный текст с вопросами, заданиями или ожидаемым результатом;
-- дата следующей проверки и состояние алгоритма;
-- история попыток: время и результат «Помню» / «Не помню».
+- A required topic title.
+- An optional category; allow quickly saving a card at the root.
+- An optional Markdown explanation.
+- Sources: a list of labels and links, including external chats and notes.
+- Review criteria: free text containing questions, tasks, or an expected result.
+- The next review date and scheduling algorithm state.
+- Attempt history: timestamp and “Remember” / “Do not remember” result.
 
-Разрешить сохранять карточку только с названием, дополнять позже. Все данные вводятся вручную. Ссылки открываются как внешние источники; автоматическое чтение, импорт и синхронизация не требуются. Не загружать и не копировать чужие материалы автоматически.
+Allow saving a card with only a title and completing it later. All data is entered manually. Links open external sources; automatic reading, importing, and synchronization are unnecessary. Do not automatically download or copy third-party material.
 
-Создание, переименование, редактирование, удаление и перемещение карточок и категорий. Для перемещения достаточно выбора родителя, drag-and-drop не требуется. Запретить циклы в категориях. Перемещение сохраняет историю карточек. Непустую категорию нельзя удалять молча: для MVP разрешить удалять только пустые категории.
+Support creating, renaming, editing, deleting, and moving cards and categories. Selecting a parent is sufficient for moving; drag and drop is unnecessary. Prevent category cycles. Moving a card preserves its history. Do not silently delete a nonempty category: the MVP allows deleting empty categories only.
 
-## 4. Интерфейс
+## 4. Interface
 
-### Боковая панель
+### Sidebar
 
-Раскрывающееся дерево категорий и карточек, ссылка на общий обзор и действия добавления. У карточек — цветной индикатор состояния с понятным текстом или подсказкой. У категорий — компактное распределение состояний вложенных карточек и число карточек к повторению. Значения не должны передаваться только цветом.
+An expandable tree of categories and cards, a link to the overall overview, and creation actions. Cards have a colored state indicator with a clear label or tooltip. Categories show a compact distribution of descendant card states and a count of cards due for review. Do not communicate meaning through color alone.
 
-### Главный экран — обзор закреплённости
+### Main screen: knowledge reinforcement overview
 
-При входе показывать общий обзор. Выбранная категория открывает такой же обзор только своей ветки; использовать один механизм расчёта и отображения.
+Show the overall overview on entry. Selecting a category opens the same overview scoped to its entire branch. Use the same calculation and rendering mechanism for both scopes.
 
-- Крупная составная горизонтальная шкала: сколько карточек новых, забытых, слабо закреплённых, закрепляющихся и устойчивых. Рядом — легенда и точные количества.
-- Охват проверками: «Проверено X из Y карточек».
-- Сколько карточек пора повторить; отдельно обозначить просроченные.
-- Список непосредственных подкатегорий с их компактными шкалами и количеством карточек к повторению; рядом показать непосредственные карточки выбранного уровня.
-- Кнопка «Начать повторение» для текущей области и доступ к очереди.
-- Понятное пустое состояние с предложением создать первую категорию или карточку.
+- A large stacked horizontal bar showing counts of new, forgotten, weakly reinforced, reinforcing, and stable cards, with a legend and exact counts.
+- Review coverage: “Reviewed X of Y cards.”
+- The number of cards due for review, with overdue cards identified separately.
+- Immediate subcategories with compact distribution bars and due counts, alongside cards directly within the selected level.
+- A “Start review” button for the current scope and access to its queue.
+- A clear empty state inviting the user to create their first category or card.
 
-Это визуальный обзор фактических данных приложения. Не выдавать его за вероятность помнить материал или процент владения всей дисциплиной. Для шкал достаточно CSS или простого SVG.
+This is a visual overview of actual application data. Do not present it as the probability of remembering material or a percentage of mastery of an entire discipline. CSS or simple SVG is sufficient for the bars.
 
-### Карточка и редактор
+### Card view and editor
 
-Название, расположение, состояние, следующая проверка, критерии, источники, Markdown-пояснение и простая история попыток. Для Markdown достаточно текстового редактора и предпросмотра. Поддержать обычное форматирование, ссылки и блоки кода; использовать готовое решение, не писать собственный парсер. Отображать Markdown без выполнения произвольного HTML.
+Show the title, location, state, next review date, criteria, sources, Markdown explanation, and a simple attempt history. A text editor and preview are sufficient for Markdown. Support standard formatting, links, and code blocks using an existing library rather than a custom parser. Render Markdown without executing arbitrary HTML.
 
-## 5. Сценарий повторения
+## 5. Review workflow
 
-1. Пользователь запускает очередь целиком или из выбранной категории со всеми её потомками.
-2. Приложение показывает название карточки и критерии проверки. Пояснение скрыто до нажатия «Показать материал»; источники доступны для открытия.
-3. Пользователь вспоминает, решает задание и проверяет себя по источнику или самостоятельно в ИИ. Ввод ответа и автоматическая оценка не требуются.
-4. Нажимает «Помню» или «Не помню». До сохранения повторное нажатие блокируется.
-5. Backend сохраняет попытку и обновляет расписание атомарно. UI показывает следующую дату и переходит дальше. При ошибке результат не считается сохранённым, можно повторить отправку.
-6. В конце — сколько карточек проверено и сколько результатов каждого типа. Можно прервать занятие; сохранённые попытки остаются.
+1. The user starts the queue for the entire map or a selected category and all its descendants.
+2. The application shows the card title and review criteria. Hide the explanation until the user selects “Show material”; source links remain available.
+3. The user recalls the topic, completes the task, and checks their answer against a source or independently with AI. Answer entry and automatic grading are unnecessary.
+4. The user selects “Remember” or “Do not remember.” Disable repeated clicks while saving.
+5. The backend records the attempt and updates the schedule atomically. The UI shows the next review date and proceeds to the next card. On failure, do not treat the result as saved; allow retrying.
+6. At the end, show how many cards were reviewed and how many results belong to each type. Allow ending a session early; saved attempts remain stored.
 
-Новые карточки попадают в очередь сразу. Остальные — с наступлением назначенной даты. Сначала идут карточки с предыдущим результатом «Не помню», затем новые, затем остальные; внутри группы — по наиболее ранней дате проверки. Каждая карточка в текущем занятии показывается один раз. Также разрешить ручную проверку отдельной карточки до срока.
+New cards enter the queue immediately. Other cards enter when their scheduled date arrives. Cards whose last result was “Do not remember” come first, then new cards, then the remaining cards. Within each group, sort by the earliest review date. Show each card only once in a session. Also allow manually reviewing an individual card before its due date.
 
-## 6. Простые правила первой версии
+## 6. Initial scheduling rules
 
-Следующие числовые значения — рабочие настройки прототипа, выбранные для определённости. Они не являются научной моделью памяти; держать их в одном месте, чтобы легко заменить.
+The following numbers are explicit prototype settings, not a scientific model of memory. Keep them in one place so they can be replaced easily.
 
-- После последовательных «Помню» назначать проверку через 1, 3, 7, 14, 30 календарных дней; далее — через 30 дней.
-- После «Не помню» сбрасывать серию успехов и назначать проверку на следующий день. Следующее «Помню» начинает последовательность заново.
-- Считать дни в одной явно заданной зоне прототипа — Europe/Moscow. Дата сегодня означает «пора повторить», более ранняя дата — «просрочено». Историю времени хранить с однозначной временной зоной.
-- «Новая»: ещё нет попыток. «Забыта»: последняя попытка — «Не помню». «Слабо закреплена»: серия из одного «Помню». «Закрепляется»: серия из двух. «Устойчива»: серия из трёх и более.
-- Срок повторения показывать отдельно от состояния. Просрочка сама по себе не переводит карточку в «Забыта».
-- Статистику категории и общего обзора считать по всем карточкам области, каждую учитывать один раз. Новые карточки включать в распределение и общее количество. Не усреднять средние дочерних категорий: большие и маленькие ветки не должны иметь одинаковый вес.
-- Состояния карточек, очередь и агрегации должны вычисляться по одним правилам на backend; UI отображает результат.
+- After consecutive “Remember” results, schedule reviews in 1, 3, 7, 14, and 30 calendar days; use 30 days thereafter.
+- After “Do not remember,” reset the success streak and schedule a review for the next day. The next “Remember” starts the sequence again.
+- Calculate calendar days in one explicit prototype time zone: Europe/Moscow. A date of today means “due”; an earlier date means “overdue.” Store history timestamps with an unambiguous time zone.
+- “New”: no attempts yet. “Forgotten”: the last attempt was “Do not remember.” “Weakly reinforced”: a streak of one “Remember.” “Reinforcing”: a streak of two. “Stable”: a streak of three or more.
+- Display the due status separately from the knowledge state. Being overdue does not automatically make a card “Forgotten.”
+- Calculate category and overall statistics from all cards within the scope, counting each once. Include new cards in both distributions and totals. Do not average child-category averages: large and small branches must not have equal weight.
+- Calculate card states, queues, and aggregations using the same backend rules. The UI displays the result.
 
-## 7. Границы первой версии
+## 7. First-version scope
 
-Сохранённые группы появятся позже как фильтры по существующей карте: выбирают темы и категории, используют ту же историю, оценки и расписание. Сейчас UI групп и отдельные сущности для них не создавать. Достаточно общего механизма получения очереди и статистики по выбранной ветке.
+Saved groups may later act as filters over the existing map: they select topics and categories while sharing the same history, results, and schedules. Do not create group UI or separate group entities now. A common mechanism for retrieving queues and statistics for a selected branch is sufficient.
 
-Также отложить: canvas-карту, интеграции с Obsidian и ИИ, импорт чатов, автоматическое составление вопросов, уведомления, аудио, геймификацию и совместную работу.
+Also defer: a canvas map, Obsidian and AI integrations, chat imports, automatic question generation, notifications, audio, gamification, and collaboration.
 
-## 8. Как реализовать без раздувания
+## 8. Implementation guidelines
 
-- Выбрать минимальное число сущностей и модулей для категорий, карточек и истории попыток. Конкретную схему и небольшой REST API определить по этим сценариям; не создавать универсальную платформу обучения.
-- Обычные NestJS controller/service и TypeORM. Дополнительные repository-слои, CQRS, event bus, микросервисы и фоновые воркеры сейчас не нужны.
-- Разделять frontend по реальной ответственности: дерево, обзор, карточка/форма, повторение. Выносить расчёты из JSX; избегать и гигантского компонента, и множества одноразовых обёрток.
-- Не вводить глобальное состояние, графовую библиотеку или тяжёлый редактор без потребности текущего сценария. Переиспользовать зависимости существующего репозитория.
-- Реализовать минимальную валидацию входных данных, понятные ошибки и состояния загрузки. Обычная регистрация пользователей и модель прав сейчас не нужны.
-- Выполнять последовательно три законченных этапа: структура и сохранение → проверки и расписание → визуальный обзор. Каждый этап оставлять запускаемым. Не останавливаться после плана: завершить весь описанный прототип.
-- Точечно проверить алгоритм, границы дат, сброс после ошибки, агрегацию вложенных категорий и запрет циклов; проверить основной пользовательский сценарий. Не раздувать тесты ради формального покрытия.
-- В конце кратко сообщить, что сделано, как запустить, что проверено и что осталось за границами MVP.
+- Use the minimum number of entities and modules needed for categories, cards, and attempt history. Design a small schema and REST API around these workflows; do not build a general learning platform.
+- Use ordinary NestJS controllers/services and TypeORM. Additional repository layers, CQRS, an event bus, microservices, and background workers are unnecessary.
+- Separate frontend responsibilities into the tree, overview, card/form, and review flow. Keep calculations outside JSX. Avoid both a giant component and excessive one-off wrappers.
+- Do not introduce global state, a graph library, or a heavy editor without a current workflow need. Reuse dependencies in an existing repository.
+- Add basic input validation, clear errors, and loading states. User registration and a permissions model are unnecessary.
+- Implement three complete stages in sequence: structure and persistence → reviews and scheduling → visual overview. Keep each stage runnable. Complete the described prototype rather than stopping after planning.
+- Focus tests on the scheduling algorithm, date boundaries, resetting after failure, nested category aggregation, and cycle prevention. Verify the main user workflow. Do not add tests solely for formal coverage.
+- At completion, briefly report what was built, how to run it, what was verified, and what remains outside the MVP.
 
-## 9. Готовность
+## 9. Acceptance criteria
 
-Пользователь создаёт дерево, добавляет карточку со ссылкой на свой чат и критериями, видит её новой на карте и в обзоре, проходит проверку и получает следующую дату. После перезагрузки всё сохраняется. Изменение результата обновляет состояние карточки, всех её родительских категорий и главного обзора. Можно повторить выбранную ветку, переместить карточку с сохранением истории и отличить забытый материал от просто просроченной проверки.
+The user creates a tree, adds a card with a link to their chat and review criteria, sees it marked as new in the map and overview, completes a review, and receives a next review date. Everything persists after reloading. A new result updates the card state, all ancestor categories, and the overall overview. The user can review a selected branch, move a card while preserving history, and distinguish forgotten material from an overdue review.
