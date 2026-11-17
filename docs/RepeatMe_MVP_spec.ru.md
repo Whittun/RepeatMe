@@ -1,4 +1,4 @@
-[English](RepeatMe_MVP_spec.md) | ???????
+[English](RepeatMe_MVP_spec.md) | Русский
 
 # RepeatMe — ТЗ первого прототипа
 

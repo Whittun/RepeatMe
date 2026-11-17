@@ -1,4 +1,4 @@
-﻿English | [Русский](RepeatMe_MVP_spec.ru.md)
+English | [Русский](RepeatMe_MVP_spec.ru.md)
 
 # RepeatMe — first prototype specification
 

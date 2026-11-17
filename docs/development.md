@@ -1,4 +1,4 @@
-﻿English | [Русский](development.ru.md)
+English | [Русский](development.ru.md)
 
 # RepeatMe development
 
