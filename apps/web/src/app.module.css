@@ -4,7 +4,7 @@
   display: flex; flex-direction: column; padding: 28px 20px 22px;
   color: #e8dfd4; background: #292637; border-right: 3px solid #1d1a28;
 }
-.brand { display: flex; align-items: center; gap: 10px; color: #fff3d9; text-decoration: none; font: 25px/1 var(--display); }
+.brand { display: flex; align-items: center; gap: 10px; color: #fff3d9; text-decoration: none; font: 16px/1 var(--display); }
 .brandIcon { color: #f9bc71; width: 34px; height: 34px; display: grid; place-items: center; }
 .beta { font: 10px/1 var(--mono); padding: 4px 5px; border: 1px solid #726375; color: #bcb1c5; margin-left: auto; }
 .tagline { color: #a69bb1; font: 10px/1.4 var(--mono); letter-spacing: .7px; margin: 13px 0 26px; }
@@ -44,7 +44,7 @@
 .topbar > div { display: flex; align-items: center; gap: 12px; }
 .topbar > div:first-child span { color: #423546; font-weight: 600; }
 .localDot { width: 7px; height: 7px; background: #ce7538; box-shadow: 2px 2px 0 #a0522a; }
-.avatar { width: 29px; height: 29px; display: grid; place-items: center; border: 2px solid #352e3c; background: #ffd493; color: #61402e; font: 17px/1 var(--display); margin-left: 7px; box-shadow: 2px 2px 0 #352e3c; }
+.avatar { width: 29px; height: 29px; display: grid; place-items: center; border: 2px solid #352e3c; background: #ffd493; color: #61402e; font: 16px/1 var(--display); margin-left: 7px; box-shadow: 2px 2px 0 #352e3c; }
 .content { max-width: 1310px; padding: 35px 40px 42px; margin: auto; min-height: calc(100vh - 131px); }
 .pageHeading { display: flex; justify-content: space-between; align-items: center; gap: 25px; margin-bottom: 27px; }
 .eyebrow { font: 11px/1.4 var(--mono); color: #9c5d3c; letter-spacing: 1.4px; margin-bottom: 7px; text-transform: uppercase; }
@@ -56,7 +56,7 @@
 .reviewBanner::before { content: ''; position: absolute; inset: 8px; border: 1px solid #cda86e; pointer-events: none; }
 .heroContent { position: relative; z-index: 1; max-width: 560px; }
 .heroLabel { display: inline-flex; align-items: center; gap: 8px; font: 10px/1.2 var(--mono); letter-spacing: 1px; color: #875333; }
-.reviewBanner h2 { font-size: 32px; line-height: 1.35; margin: 13px 0; white-space: pre-line; color: #3b2c38; }
+.reviewBanner h2 { font-size: 24px; line-height: 1.6; margin: 13px 0; white-space: pre-line; color: #3b2c38; }
 .reviewBanner p { font-size: 12px; line-height: 1.7; color: #806145; margin-bottom: 20px; max-width: 400px; }
 .heroArt { width: 285px; height: 185px; position: relative; flex-shrink: 0; image-rendering: pixelated; }
 .heroCaption { position: absolute; bottom: 19px; right: 39px; color: #8e674b; font: 9px/1 var(--mono); letter-spacing: 1px; }
@@ -67,8 +67,8 @@
 .metrics > button:hover:not(:disabled) { background: #ffe6bb; }
 .metrics span { display: flex; justify-content: space-between; align-items: center; color: #7b6570; font-size: 11px; font-weight: 500; }
 .metrics svg { color: #a77a5b; }
-.metrics strong { display: block; font: 42px/1 var(--display); margin: 10px 0 7px; color: #3a3041; }
-.metrics em { font: 25px/1 var(--display); color: #ad99a1; }
+.metrics strong { display: block; font: 32px/1 var(--display); margin: 10px 0 7px; color: #3a3041; }
+.metrics em { font: 16px/1 var(--display); color: #ad99a1; }
 .metrics small { font-size: 10px; color: #8d7b7e; }
 .metrics small b { font-weight: 600; color: #a64c36; }
 .panel { border: 2px solid #b3a1a2; background: #fffaf0; box-shadow: 4px 4px 0 #ded2c2; padding: 24px 26px; margin-bottom: 29px; }
@@ -87,7 +87,7 @@
 .emptyDistribution { margin: 9px 0 0; font-size: 11px; color: #96848a; }
 .legend { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
 .legend > div { display: grid; grid-template-columns: 9px 1fr; gap: 7px; align-items: center; font-size: 10px; color: #86727b; }
-.legend strong { font: 27px/1 var(--display); grid-column: 2; color: #433244; }
+.legend strong { font: 16px/1 var(--display); grid-column: 2; color: #433244; }
 .footnote { font-size: 10px; color: #9b898d; border-top: 1px dashed #d9cabb; padding-top: 12px; margin: 19px 0 0; }
 .textButton { background: transparent; border: 0; padding: 5px 0; box-shadow: none; color: #aa542d; font-size: 12px; }
 .textButton:hover:not(:disabled) { background: transparent; color: #713b29; text-decoration: underline; }
@@ -116,7 +116,7 @@
 .footer > span { font: 10px/1.4 'Segoe UI', sans-serif; color: #a18b8c; }
 .footer > span:last-child { margin-left: auto; }
 .empty { display: flex; align-items: center; gap: 24px; padding: 30px; border: 2px dashed #baa49f; background: #f8f0df; margin: 12px 0 22px; }
-.empty h2 { margin: 5px 0 9px; font-size: 21px; }
+.empty h2 { margin: 5px 0 9px; font-size: 16px; }
 .empty p:not(.eyebrow) { margin-bottom: 0; font-size: 12px; color: #8f7780; line-height: 1.8; }
 .empty .eyebrow { font-size: 12px; }
 .empty .actions { flex-direction: column; margin-left: auto; align-items: stretch; min-width: 175px; }
@@ -127,13 +127,13 @@
 .error button { margin-left: 10px; padding: 5px 10px; font-size: 11px; }
 .modal { border: 3px solid #352e3c; border-radius: 0; background: #fff8e8; color: #352e3c; padding: 27px 30px; width: calc(100% - 40px); max-width: 720px; max-height: 90vh; box-shadow: 8px 8px 0 #1e192a88, inset 0 6px 0 #f4ca91; }
 .modalHeader { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 2px solid #dbc9b6; padding-bottom: 18px; margin-bottom: 22px; }
-.modalHeader h2 { font-size: 23px; margin: 0; }
+.modalHeader h2 { font-size: 16px; margin: 0; }
 .modalHeader button { padding: 6px; background: #ffe0b2; }
 .form { display: flex; flex-direction: column; gap: 18px; }
 .form label { display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; }
 .form label span { color: #aa582e; }
 .form .sectionHeading { margin-bottom: 0; }
-.form h3 { font-size: 18px; }
+.form h3 { font-size: 16px; }
 .form h3 small { color: #927d86; font: 10px/1.4 'Segoe UI', sans-serif; margin-left: 8px; }
 .sourceFields { display: flex; gap: 8px; }
 .sourceFields input:first-child { width: 35%; }
@@ -170,42 +170,44 @@
 .savedResult p { display: flex; align-items: center; gap: 8px; color: #81613f; font-size: 12px; }
 .sessionSummary { max-width: 750px; margin: 50px auto; text-align: center; padding: 40px; border: 2px solid #352e3c; background: #fff6df; box-shadow: 5px 5px 0 #cbb5a7; }
 .sessionSummary .eyebrow { margin-top: 28px; }
-.sessionSummary h1 { font-size: 31px; }
+.sessionSummary h1 { font-size: 24px; }
 .sessionSummary p { color: #92706f; }
 .resultCounts { display: flex; justify-content: center; gap: 60px; margin: 30px 0; }
 .resultCounts span { display: flex; flex-direction: column; font-size: 12px; color: #9d7a7c; }
-.resultCounts strong { font: 48px/1.2 var(--display); color: #a25c30; }
+.resultCounts strong { font: 32px/1.2 var(--display); color: #a25c30; }
 .sessionSummary .primary { margin-top: 18px; }
 @media (min-width: 1600px) { .content { padding-top: 44px; }.heroArt { width: 320px; height: 195px; }.reviewBanner { padding: 32px 38px; } }
 @media (max-width: 1200px) {
   .sidebar { width: 240px; padding: 25px 15px; }.content { padding: 30px 27px; }.topbar, .footer { padding-left: 27px; padding-right: 27px; }
-  .heroArt { width: 220px; height: 160px; }.reviewBanner { padding: 25px; }.reviewBanner h2 { font-size: 32px; }.heroCaption { right: 24px; font-size: 9px; }
+  .heroArt { width: 220px; height: 160px; }.reviewBanner { padding: 25px; }.reviewBanner h2 { font-size: 24px; }.heroCaption { right: 24px; font-size: 9px; }
   .categoryGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.empty { flex-wrap: wrap; }.empty .actions { flex-direction: row; margin: 0; width: 100%; }
   .tableHead, .cardList > button { grid-template-columns: minmax(0, 1fr) 145px 110px 16px; gap: 8px; padding: 15px; }
 }
 @media (max-width: 1000px) {
-  .sidebar { width: 220px; padding: 22px 12px; }.brand { font-size: 25px; }.brandIcon { width: 28px; }.beta { font-size: 10px; }.libraryBadge { padding: 11px 8px; gap: 8px; }.libraryAvatar { width: 31px; height: 34px; }.libraryBadge strong { font-size: 11px; }
-  .reviewBanner { min-height: 240px; }.heroArt { width: 170px; height: 135px; }.heroCaption { display: none; }.reviewBanner h2 { font-size: 30px; }.reviewBanner p { max-width: 320px; }.heroLabel { font-size: 10px; }
+  .sidebar { width: 220px; padding: 22px 12px; }.brand { font-size: 16px; }.brandIcon { width: 28px; }.beta { font-size: 10px; }.libraryBadge { padding: 11px 8px; gap: 8px; }.libraryAvatar { width: 31px; height: 34px; }.libraryBadge strong { font-size: 11px; }
+  .reviewBanner { min-height: 240px; }.heroArt { width: 170px; height: 135px; }.heroCaption { display: none; }.reviewBanner h2 { font-size: 16px; }.reviewBanner p { max-width: 320px; }.heroLabel { font-size: 10px; }
   .metrics { gap: 12px; }.metrics > div, .metrics > button { padding: 15px 13px; }.metrics small { font-size: 9px; }.legend { grid-template-columns: repeat(3, 1fr); gap: 15px; }
-  .topbar > div:last-child { font-size: 0; gap: 0; }.localDot { display: none; }.pageHeading { gap: 15px; }.pageHeading h1 { font-size: 32px; }.subtitle { font-size: 11px; }.pageHeading .primary { padding: 11px; font-size: 11px; }
+  .topbar > div:last-child { font-size: 0; gap: 0; }.localDot { display: none; }.pageHeading { gap: 15px; }.pageHeading h1 { font-size: 24px; }.subtitle { font-size: 11px; }.pageHeading .primary { padding: 11px; font-size: 11px; }
 }
 @media (max-width: 800px) {
   .sidebar { width: 195px; padding: 20px 10px; }.beta { display: none; }.tagline { font-size: 10px; }.libraryBadge { display: none; }.sidebarFoot { font-size: 9px; }.sidebarFoot span { font-size: 10px; }
-  .content { padding: 24px 20px; }.topbar, .footer { padding: 0 20px; }.heroArt { width: 140px; height: 120px; margin-right: -15px; }.reviewBanner { gap: 0; padding: 23px; }.reviewBanner h2 { font-size: 29px; }.heroContent { min-width: 0; }.reviewBanner .primary { font-size: 11px; padding: 11px; }
+  .content { padding: 24px 20px; }.topbar, .footer { padding: 0 20px; }.heroArt { width: 140px; height: 120px; margin-right: -15px; }.reviewBanner { gap: 0; padding: 23px; }.reviewBanner h2 { font-size: 16px; }.heroContent { min-width: 0; }.reviewBanner .primary { font-size: 11px; padding: 11px; }
   .pageHeading { align-items: flex-start; flex-direction: column; gap: 17px; }.metrics { grid-template-columns: 1fr; gap: 12px; }.metrics > div, .metrics > button { display: grid; grid-template-columns: 1fr auto; padding: 14px 18px; align-items: center; }.metrics strong { grid-column: 2; grid-row: 1 / 3; margin: 0; }.metrics small { font-size: 10px; }
   .categoryGrid { grid-template-columns: 1fr; }.tableHead { display: none; }.cardList > button { grid-template-columns: 1fr auto; }.cardList > button > span:last-of-type { grid-column: 1; }.cardList > button svg { grid-column: 2; grid-row: 2; }
-  .empty { padding: 24px; gap: 18px; }.emptyIcon { width: 48px; height: 48px; }.empty h2 { font-size: 21px; }.empty .actions { flex-direction: column; }.panel { padding: 22px; }.historyRow { flex-wrap: wrap; gap: 10px; }.historyRow small { margin-left: 0; }.reviewCard { padding: 26px; }.footer > span:first-child { display: none; }
+  .empty { padding: 24px; gap: 18px; }.emptyIcon { width: 48px; height: 48px; }.empty h2 { font-size: 16px; }.empty .actions { flex-direction: column; }.panel { padding: 22px; }.historyRow { flex-wrap: wrap; gap: 10px; }.historyRow small { margin-left: 0; }.reviewCard { padding: 26px; }.footer > span:first-child { display: none; }
 }
 @media (max-width: 580px) {
-  .app { display: block; }.sidebar { position: static; height: auto; width: auto; padding: 18px; border-right: 0; border-bottom: 3px solid #171420; display: block; }.brand { display: inline-flex; font-size: 25px; }.brandIcon { width: 30px; }.tagline, .sidebarTitle, .tree, .sidebarFoot { display: none; }.overviewLink { float: right; font-size: 11px; padding: 8px; }.overviewLink svg { width: 13px; }.addCard { width: 100%; margin: 18px 0 2px; padding: 10px; }
-  .topbar { height: 54px; font-size: 11px; padding: 0 18px; }.topbar > div { gap: 8px; }.content { padding: 25px 18px; }.pageHeading { margin-bottom: 24px; }.pageHeading h1 { font-size: 32px; }.pageHeading .actions { align-self: stretch; }.pageHeading .primary { margin-left: auto; }
-  .reviewBanner { padding: 24px; min-height: 315px; align-items: flex-start; margin-bottom: 26px; }.reviewBanner h2 { font-size: 32px; }.reviewBanner p { max-width: 70%; font-size: 11px; margin-bottom: 26px; }.heroArt { position: absolute; right: 5px; bottom: 27px; width: 145px; height: 130px; }.heroContent { width: 100%; }.reviewBanner .primary { position: relative; z-index: 1; }.heroLabel { font-size: 10px; }.reviewBanner::before { inset: 7px; }
-  .legend { grid-template-columns: repeat(2, 1fr); }.sectionHeading { gap: 10px; }.sectionHeading h2 { font-size: 21px; }.sectionHeading p:not(.eyebrow) { font-size: 10px; }.pill { font-size: 11px; padding: 4px 6px; }.panel { padding: 20px 18px; }.empty { align-items: flex-start; }.empty > div:nth-child(2) { flex: 1; }.empty h2 { font-size: 21px; }.empty p:not(.eyebrow) { font-size: 11px; }.empty .eyebrow { font-size: 10px; }
-  .footer { padding: 0 18px; }.footer > span:last-child { font-size: 9px; }.sourceFields { flex-wrap: wrap; }.sourceFields input:first-child { width: 100%; }.sourceFields input:nth-child(2) { flex: 1; }.modal { padding: 23px 20px; width: calc(100% - 28px); }.modalHeader h2 { font-size: 23px; }.formFooter { flex-wrap: wrap; }.formFooter > .actions { flex-wrap: wrap; }.form h3 small { display: block; margin-left: 0; margin-top: 4px; }
-  .queueList > div { flex-wrap: wrap; gap: 8px; }.queueList .status { margin-left: 22px; width: 100%; }.answerButtons { gap: 12px; }.answerButtons button { font-size: 12px; padding: 14px 8px; }.savedResult { padding: 16px; }.savedResult p { align-items: flex-start; }.sessionSummary { padding: 30px 22px; margin: 20px 0; }.sessionSummary h1 { font-size: 31px; }.reviewCard h1 { font-size: 29px; }.resultCounts { gap: 40px; }
+  .app { display: block; }.sidebar { position: static; height: auto; width: auto; padding: 18px; border-right: 0; border-bottom: 3px solid #171420; display: block; }.brand { display: inline-flex; font-size: 16px; }.brandIcon { width: 30px; }.tagline, .sidebarTitle, .tree, .sidebarFoot { display: none; }.overviewLink { float: right; font-size: 11px; padding: 8px; }.overviewLink svg { width: 13px; }.addCard { width: 100%; margin: 18px 0 2px; padding: 10px; }
+  .topbar { height: 54px; font-size: 11px; padding: 0 18px; }.topbar > div { gap: 8px; }.content { padding: 25px 18px; }.pageHeading { margin-bottom: 24px; }.pageHeading h1 { font-size: 24px; }.pageHeading .actions { align-self: stretch; }.pageHeading .primary { margin-left: auto; }
+  .reviewBanner { padding: 24px; min-height: 315px; align-items: flex-start; margin-bottom: 26px; }.reviewBanner h2 { font-size: 16px; }.reviewBanner p { max-width: 70%; font-size: 11px; margin-bottom: 26px; }.heroArt { position: absolute; right: 5px; bottom: 27px; width: 145px; height: 130px; }.heroContent { width: 100%; }.reviewBanner .primary { position: relative; z-index: 1; }.heroLabel { font-size: 10px; }.reviewBanner::before { inset: 7px; }
+  .legend { grid-template-columns: repeat(2, 1fr); }.sectionHeading { gap: 10px; }.sectionHeading h2 { font-size: 16px; }.sectionHeading p:not(.eyebrow) { font-size: 10px; }.pill { font-size: 11px; padding: 4px 6px; }.panel { padding: 20px 18px; }.empty { align-items: flex-start; }.empty > div:nth-child(2) { flex: 1; }.empty h2 { font-size: 16px; }.empty p:not(.eyebrow) { font-size: 11px; }.empty .eyebrow { font-size: 10px; }
+  .footer { padding: 0 18px; }.footer > span:last-child { font-size: 9px; }.sourceFields { flex-wrap: wrap; }.sourceFields input:first-child { width: 100%; }.sourceFields input:nth-child(2) { flex: 1; }.modal { padding: 23px 20px; width: calc(100% - 28px); }.modalHeader h2 { font-size: 16px; }.formFooter { flex-wrap: wrap; }.formFooter > .actions { flex-wrap: wrap; }.form h3 small { display: block; margin-left: 0; margin-top: 4px; }
+  .queueList > div { flex-wrap: wrap; gap: 8px; }.queueList .status { margin-left: 22px; width: 100%; }.answerButtons { gap: 12px; }.answerButtons button { font-size: 12px; padding: 14px 8px; }.savedResult { padding: 16px; }.savedResult p { align-items: flex-start; }.sessionSummary { padding: 30px 22px; margin: 20px 0; }.sessionSummary h1 { font-size: 24px; }.reviewCard h1 { font-size: 24px; }.resultCounts { gap: 40px; }
 }
 @media (max-width: 400px) {
   .heroArt { display: none; }
   .reviewBanner { min-height: 0; }
   .reviewBanner p { max-width: 100%; }
 }
+.modalHeader h2 { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 1000px) { .brand .beta { display: none; } }

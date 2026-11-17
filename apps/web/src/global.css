@@ -1,6 +1,6 @@
 ﻿@font-face {
-  font-family: 'Russo One';
-  src: url('./assets/fonts/RussoOne-Regular.ttf') format('truetype');
+  font-family: 'Press Start 2P';
+  src: url('./assets/fonts/PressStart2P-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -18,7 +18,7 @@
   --line: #d9cfbb;
   --orange: #ed944e;
   --orange-dark: #b95729;
-  --display: 'Russo One', 'Segoe UI', sans-serif;
+  --display: 'Press Start 2P', 'Courier New', monospace;
   --mono: Consolas, 'Courier New', monospace;
 }
 * { box-sizing: border-box; }
@@ -60,9 +60,9 @@ textarea { resize: vertical; }
 a { color: #a74722; text-underline-offset: 3px; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; }
-h1 { font-size: 34px; line-height: 1.3; margin-bottom: 9px; overflow-wrap: anywhere; }
-h2 { font-size: 22px; line-height: 1.4; margin-bottom: 12px; }
-h3 { font-size: 19px; line-height: 1.4; }
+h1 { font-size: 24px; line-height: 1.6; margin-bottom: 9px; overflow-wrap: anywhere; }
+h2 { font-size: 16px; line-height: 1.7; margin-bottom: 12px; }
+h3 { font-size: 16px; line-height: 1.7; }
 small { font-size: 12px; }
 ::selection { background: #ffcb86; color: #352e3c; }
 dialog::backdrop { background: #252131b8; }

@@ -13,7 +13,7 @@ These are visual references. The application uses its own CSS Modules rather tha
 
 ## Assets and typography
 
-- [Russo One](https://github.com/google/fonts/tree/main/ofl/russoone) provides detailed, angular game-style headings and numbers, including Cyrillic. It is bundled locally in `apps/web/src/assets/fonts`; its SIL Open Font License is included as `OFL-RussoOne.txt`. Small labels use a system monospace font to keep the retro feel without coarse pixel lettering.
+- [Press Start 2P](https://github.com/google/fonts/tree/main/ofl/pressstart2p) provides pixel-art headings and numbers, including Cyrillic. Its 8-pixel design preserves the arcade look with more detail than the original Tiny5 lettering. Headings use 16 or 24 pixels, and large counters use 32 pixels. It is bundled locally in `apps/web/src/assets/fonts`; its SIL Open Font License is included as `OFL-PressStart2P.txt`. Small labels use a system monospace font.
 - Body text, review criteria, and Markdown use a system sans-serif font for readability. Code uses a monospace font.
 - `PixelIcons.tsx`, `PixelScene.tsx`, and `public/favicon.svg` contain original SVG artwork on a consistent pixel grid.
 
