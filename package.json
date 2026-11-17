@@ -1,0 +1,23 @@
+{
+  "name": "repeatme",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm run dev -w @repeatme/api\" \"npm run dev -w @repeatme/web\"",
+    "build": "npm run build --workspaces",
+    "test": "npm run test -w @repeatme/api",
+    "test:integration": "npm run test:integration -w @repeatme/api",
+    "test:http": "npm run test:http -w @repeatme/api",
+    "db:migrate": "npm run db:migrate -w @repeatme/api",
+    "db:revert": "npm run db:revert -w @repeatme/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}
