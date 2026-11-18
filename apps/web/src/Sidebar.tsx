@@ -30,6 +30,6 @@ export function Sidebar({ data, categoryId, cardId, onCategory, onCard, onCreate
     <div className={s.sidebarTitle}>МОЯ КАРТА <button aria-label="Добавить категорию" onClick={() => onCreate('category')}><Plus size={17}/></button></div>
     <nav aria-label="Карта знаний" className={s.tree}>{data.categories.filter(c => !c.parentId).map(branch)}{data.cards.filter(c => !c.categoryId).map(cardRow)}{!data.cards.length && !data.categories.length && <p className={s.muted}>Здесь появятся ваши темы</p>}</nav>
     <button className={s.addCard} onClick={() => onCreate('card')}><Plus size={18}/>Добавить карточку</button>
-    <div className={s.sidebarFoot}><BookOpen size={22}/><div>НЕ ДАЙ ЗНАНИЯМ ИСЧЕЗНУТЬ<br/><span>Следующий ход — за вами.</span></div></div>
+    <div className={s.sidebarFoot}><BookOpen size={22}/><div>НЕ ДАЙ ЗНАНИЯМ ИСЧЕЗНУТЬ</div></div>
   </aside>;
 }

@@ -38,7 +38,6 @@
 .addCard:hover:not(:disabled) { background: #ffbd7a; }
 .sidebarFoot { display: flex; align-items: center; gap: 12px; padding: 20px 0 0; border-top: 2px solid #4a4057; color: #bda7a3; font: 9px/1.5 var(--mono); }
 .sidebarFoot > svg { color: #e8a562; }
-.sidebarFoot span { font: 11px/1.7 'Segoe UI', sans-serif; color: #a195ad; }
 .main { flex: 1; min-width: 0; background-image: radial-gradient(#ac927c25 1px, transparent 1px); background-size: 12px 12px; }
 .topbar { height: 72px; border-bottom: 2px solid #d6cbb9; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; background: #fbf6e9; font-size: 12px; color: #857584; }
 .topbar > div { display: flex; align-items: center; gap: 12px; }
@@ -48,7 +47,6 @@
 .content { max-width: 1310px; padding: 35px 40px 42px; margin: auto; min-height: calc(100vh - 131px); }
 .pageHeading { display: flex; justify-content: space-between; align-items: center; gap: 25px; margin-bottom: 27px; }
 .eyebrow { font: 11px/1.4 var(--mono); color: #9c5d3c; letter-spacing: 1.4px; margin-bottom: 7px; text-transform: uppercase; }
-.subtitle { color: #82727a; font-size: 13px; margin: 0; }
 .actions { display: flex; align-items: center; gap: 12px; }
 .primary { background: #ef9a4e; border-color: #352e3c; color: #332737; box-shadow: 0 4px 0 #352e3c, inset 0 3px 0 #ffcb86; padding: 12px 17px; font-size: 12px; font-weight: 700; }
 .primary:hover:not(:disabled) { background: #ffb768; }
@@ -58,6 +56,10 @@
 .heroLabel { display: inline-flex; align-items: center; gap: 8px; font: 10px/1.2 var(--mono); letter-spacing: 1px; color: #875333; }
 .reviewBanner h2 { font-size: 24px; line-height: 1.6; margin: 13px 0; white-space: pre-line; color: #3b2c38; }
 .reviewBanner p { font-size: 12px; line-height: 1.7; color: #806145; margin-bottom: 20px; max-width: 400px; }
+.cardReviewSummary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; margin-bottom: 24px; border: 2px solid #352e3c; box-shadow: 3px 3px 0 #352e3c; background: #fff0d7; }
+.cardReviewSummary > div { min-width: 0; }
+.cardReviewSummary p { margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #806145; }
+.cardReviewSummary > button { flex-shrink: 0; }
 .heroArt { width: 285px; height: 185px; position: relative; flex-shrink: 0; image-rendering: pixelated; }
 .heroCaption { position: absolute; bottom: 19px; right: 39px; color: #8e674b; font: 9px/1 var(--mono); letter-spacing: 1px; }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 28px; }
@@ -187,10 +189,10 @@
   .sidebar { width: 220px; padding: 22px 12px; }.brand { font-size: 16px; }.brandIcon { width: 28px; }.beta { font-size: 10px; }.libraryBadge { padding: 11px 8px; gap: 8px; }.libraryAvatar { width: 31px; height: 34px; }.libraryBadge strong { font-size: 11px; }
   .reviewBanner { min-height: 240px; }.heroArt { width: 170px; height: 135px; }.heroCaption { display: none; }.reviewBanner h2 { font-size: 16px; }.reviewBanner p { max-width: 320px; }.heroLabel { font-size: 10px; }
   .metrics { gap: 12px; }.metrics > div, .metrics > button { padding: 15px 13px; }.metrics small { font-size: 9px; }.legend { grid-template-columns: repeat(3, 1fr); gap: 15px; }
-  .topbar > div:last-child { font-size: 0; gap: 0; }.localDot { display: none; }.pageHeading { gap: 15px; }.pageHeading h1 { font-size: 24px; }.subtitle { font-size: 11px; }.pageHeading .primary { padding: 11px; font-size: 11px; }
+  .topbar > div:last-child { font-size: 0; gap: 0; }.localDot { display: none; }.pageHeading { gap: 15px; }.pageHeading h1 { font-size: 24px; }.pageHeading .primary { padding: 11px; font-size: 11px; }
 }
 @media (max-width: 800px) {
-  .sidebar { width: 195px; padding: 20px 10px; }.beta { display: none; }.tagline { font-size: 10px; }.libraryBadge { display: none; }.sidebarFoot { font-size: 9px; }.sidebarFoot span { font-size: 10px; }
+  .sidebar { width: 195px; padding: 20px 10px; }.beta { display: none; }.tagline { font-size: 10px; }.libraryBadge { display: none; }.sidebarFoot { font-size: 9px; }
   .content { padding: 24px 20px; }.topbar, .footer { padding: 0 20px; }.heroArt { width: 140px; height: 120px; margin-right: -15px; }.reviewBanner { gap: 0; padding: 23px; }.reviewBanner h2 { font-size: 16px; }.heroContent { min-width: 0; }.reviewBanner .primary { font-size: 11px; padding: 11px; }
   .pageHeading { align-items: flex-start; flex-direction: column; gap: 17px; }.metrics { grid-template-columns: 1fr; gap: 12px; }.metrics > div, .metrics > button { display: grid; grid-template-columns: 1fr auto; padding: 14px 18px; align-items: center; }.metrics strong { grid-column: 2; grid-row: 1 / 3; margin: 0; }.metrics small { font-size: 10px; }
   .categoryGrid { grid-template-columns: 1fr; }.tableHead { display: none; }.cardList > button { grid-template-columns: 1fr auto; }.cardList > button > span:last-of-type { grid-column: 1; }.cardList > button svg { grid-column: 2; grid-row: 2; }
