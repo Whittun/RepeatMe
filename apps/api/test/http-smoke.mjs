@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-const base = process.env.API_URL ?? 'http://127.0.0.1:3001/api';
+import { config } from 'dotenv';
+import { fileURLToPath } from 'node:url';
+config({ path: fileURLToPath(new URL('../../../.env', import.meta.url)) });
+const base = process.env.API_URL ?? `http://127.0.0.1:${process.env.PORT ?? 3001}/api`;
 async function request(path, method = 'GET', body, expected = 200) {
   const r = await fetch(`${base}/${path}`, { method, headers: body ? { 'Content-Type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined });
   const text = await r.text();
   assert.equal(r.status, expected, `${method} ${path}: ${text}`);
   return text ? JSON.parse(text) : undefined;
 }
-let category, card;
+let category, card, importedCard;
 try {
   await request('cards', 'POST', { title: '   ' }, 400);
   await request('cards', 'POST', { title: 'Invalid', sources: [{ label: 'bad', url: 'javascript:alert(1)' }] }, 400);
@@ -30,8 +33,18 @@ try {
   await request(`cards/${card.id}`, 'PUT', { ...{ title: card.title, criteria: card.criteria, sources: card.sources, explanation: card.explanation }, categoryId: null });
   assert.equal((await getScope()).stats.total, 0);
   assert.equal((await request(`cards/${card.id}/history`)).length, 1);
-  console.log('PASS HTTP: validation, category/card creation, sources, review/retry, reread persistence, branch statistics, move/history.');
+  const importPayload = { vaultName: `HTTP fixture ${randomUUID()}`, parentId: category.id, folders: [], notes: [{ path: 'Selected.md', content: '# Selected' }] };
+  await request('imports/obsidian', 'POST', { ...importPayload, notes: [{ path: '../outside.md' }] }, 400);
+  await request('imports/obsidian', 'POST', { ...importPayload, notes: [{ path: 'Bad.md', content: 42 }] }, 400);
+  await request('imports/obsidian', 'POST', { ...importPayload, vaultName: '' }, 400);
+  const imported = await request('imports/obsidian', 'POST', importPayload, 201);
+  importedCard = (await getScope()).cards.find(c => c.title === 'Selected' && c.categoryId === category.id);
+  assert.equal(imported.cardsCreated, 1); assert.equal(importedCard.explanation, '# Selected');
+  const repeated = await request('imports/obsidian', 'POST', importPayload, 201);
+  assert.equal(repeated.cardsCreated, 0); assert.equal(repeated.cardsSkipped, 1);
+  console.log('PASS HTTP: validation, persistence, reviews, move/history, selected import, content and duplicate prevention.');
 } finally {
   if (card) await request(`cards/${card.id}`, 'DELETE');
+  if (importedCard) await request(`cards/${importedCard.id}`, 'DELETE');
   if (category) await request(`categories/${category.id}`, 'DELETE');
 }

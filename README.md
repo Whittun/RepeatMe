@@ -35,11 +35,13 @@ Stop the application with **Ctrl+C** and the database with `docker compose stop`
 
 ```powershell
 npm run build             # Build frontend and backend
-npm test                  # Review rules and date boundaries
+npm test                  # Review rules, dates, folder and ZIP readers
 npm run test:integration  # Requires PostgreSQL; uses a separate test database
 npm run test:http         # Requires a running API; cleans up its test records
 ```
 
-Connection settings are in the root `.env`. If you change the API `PORT`, update the proxy in `apps/web/vite.config.ts` as well.
+Connection settings are in the root `.env`. Vite reads the API `PORT` from the same file; restart `npm run dev` after changing it. If Windows rejects port 3001 with `EACCES`, choose an available port such as 3101 in `.env`.
+
+Use **Импорт из Obsidian** in the sidebar to select a vault folder or ZIP, then choose categories and notes. [Import guide](docs/obsidian-import.md).
 
 Read more: [development documentation](docs/development.md), [MVP specification](docs/RepeatMe_MVP_spec.md), [visual direction and references](docs/design.md).

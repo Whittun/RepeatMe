@@ -4,8 +4,9 @@ import assert from 'node:assert/strict';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import dataSource from '../src/data-source';
 import { KnowledgeService } from '../src/knowledge.service';
-import { Card, Attempt } from '../src/entities';
+import { Card, Attempt, Category } from '../src/entities';
 import { randomUUID } from 'node:crypto';
+import { ObsidianImportService } from '../src/obsidian-import';
 
 async function main() {
   const database = `repeatme_test_${randomUUID().replaceAll('-', '')}`;
@@ -52,6 +53,38 @@ async function main() {
     assert.equal(await test.manager.count(Attempt), 0);
     await service.deleteCategory(a.id);
     assert.equal((await service.snapshot()).stats.total, 0);
+    const importer = new ObsidianImportService(test);
+    const payload = { vaultName: 'Test Vault', basePath: 'Archive/Разработка', folders: ['Archive/Разработка/Backend/Empty'], notes: [
+      { path: 'Archive/Разработка/Backend/Nest/Guard.md', content: '# Материал' },
+      { path: 'Archive/Разработка/Общее.md' },
+    ] };
+    assert.deepEqual(await importer.import(payload), { categoriesCreated: 4, cardsCreated: 2, cardsSkipped: 0 });
+    const imported = await service.snapshot();
+    assert(!imported.categories.some(c => c.name === 'Archive' || c.name === 'Английский'));
+    const guard = imported.cards.find(c => c.title === 'Guard')!;
+    assert.equal(guard.explanation, '# Материал');
+    const link = new URL(guard.sources[0].url);
+    assert.equal(link.searchParams.get('vault'), 'Test Vault');
+    assert.equal(link.searchParams.get('file'), 'Archive/Разработка/Backend/Nest/Guard');
+    await service.saveCard({ ...guard, criteria: 'Мои вопросы', explanation: 'Моя правка' }, guard.id);
+    await service.review(guard.id, { remembered: true, requestId: randomUUID() });
+    assert.deepEqual(await importer.import(payload), { categoriesCreated: 0, cardsCreated: 0, cardsSkipped: 2 });
+    const reimported = (await service.snapshot()).cards.find(c => c.id === guard.id)!;
+    assert.equal(reimported.explanation, 'Моя правка'); assert.equal(reimported.criteria, 'Мои вопросы'); assert.equal(reimported.streak, 1);
+    assert.equal((await service.history(guard.id)).length, 1);
+    for (const bad of ['../secret.md', '/secret.md', '.obsidian/private.md', 'Other/Outside.md']) {
+      await assert.rejects(importer.import({ ...payload, notes: [{ path: bad }] }));
+    }
+    const destination = await service.saveCategory({ name: 'Выбранное' });
+    await importer.import({ vaultName: 'Vault2', vaultPrefix: 'Развитие', parentId: destination.id, folders: [], notes: [{ path: 'Note.md' }] });
+    const note = (await service.snapshot(destination.id)).cards.find(c => c.title === 'Note')!;
+    assert.equal(note.categoryId, destination.id); assert.equal(note.explanation, '');
+    assert.equal(new URL(note.sources[0].url).searchParams.get('file'), 'Развитие/Note');
+    await service.saveCategory({ name: 'Z duplicate' }); await service.saveCategory({ name: 'Z duplicate' });
+    const countBefore = await test.manager.count(Category);
+    await assert.rejects(importer.import({ vaultName: 'Rollback', folders: ['A created', 'Z duplicate'], notes: [] }));
+    assert.equal(await test.manager.count(Category), countBefore);
+    console.log('PASS import: selected subtree, content opt-in, links, destination, retries, preserved criteria/history, validation and atomic rollback.');
     await test.undoLastMigration(); await test.runMigrations();
     console.log('PASS: migrations/revert, persistence, nested statistics, cycles, nonempty deletion, concurrent retry, review reset, move/history, rollback and cascade.');
   } finally {

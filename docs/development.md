@@ -16,7 +16,7 @@ npm run db:migrate
 npm run dev
 ```
 
-Open http://127.0.0.1:5173, or the address printed by Vite if that port is busy. API: http://127.0.0.1:3001/api. Both servers bind to the local computer. Vite proxies `/api` to port 3001. If you change the API port, also update `apps/web/vite.config.ts`. The backend reads `.env` from the repository root.
+Open http://127.0.0.1:5173, or the address printed by Vite if that port is busy. The API defaults to http://127.0.0.1:3001/api. Both servers bind to the local computer. The backend and Vite proxy read `PORT` from the root `.env`; restart development servers after changing it.
 
 Stop the application with Ctrl+C. Stop PostgreSQL with `docker compose stop`; data persists in the Docker volume. Start the database again with `docker compose up -d --wait`. Run only one application instance to avoid a port 3001 conflict.
 
@@ -61,4 +61,6 @@ Migrations are applied explicitly; automatic schema synchronization is disabled.
 
 `apps/api/src` contains three entities, a controller/service, rules, DTOs, and a migration. `apps/web/src` contains the tree, overview, card view, forms, and review session. State lives in React without a separate store. The initial database is empty.
 
-Outside the MVP: authentication, saved groups, a canvas map, AI/Obsidian integrations, imports, notifications, audio, and collaboration. External sources open as links; their content is not downloaded.
+The application also supports [selective import from an Obsidian folder or ZIP](obsidian-import.md). Text is copied only when explicitly selected; existing cards are preserved.
+
+Outside the current version: authentication, saved groups, a canvas map, AI integrations, automatic Obsidian synchronization, notifications, audio, and collaboration. External source links open in their original applications.

@@ -5,10 +5,13 @@ import { DataSource } from 'typeorm';
 import dataSource from './data-source';
 import { KnowledgeService } from './knowledge.service';
 import { CategoryDto, CardDto, ReviewDto } from './dto';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { ObsidianImportDto, ObsidianImportService } from './obsidian-import';
 
 @Controller('api')
 class KnowledgeController {
-  constructor(private readonly service: KnowledgeService) {}
+  constructor(private readonly service: KnowledgeService, private readonly importer: ObsidianImportService) {}
+  @Post('imports/obsidian') importObsidian(@Body() body: ObsidianImportDto) { return this.importer.import(body); }
   @Get('snapshot') snapshot(@Query('categoryId', new ParseUUIDPipe({ optional: true })) root?: string) { return this.service.snapshot(root); }
   @Post('categories') createCategory(@Body() body: CategoryDto) { return this.service.saveCategory(body); }
   @Put('categories/:id') updateCategory(@Param('id', ParseUUIDPipe) id: string, @Body() body: CategoryDto) { return this.service.saveCategory(body, id); }
@@ -20,12 +23,13 @@ class KnowledgeController {
   @Post('cards/:id/reviews') review(@Param('id', ParseUUIDPipe) id: string, @Body() body: ReviewDto) { return this.service.review(id, body); }
 }
 @Module({ controllers: [KnowledgeController], providers: [
-  { provide: DataSource, useFactory: () => dataSource.initialize() }, KnowledgeService,
+  { provide: DataSource, useFactory: () => dataSource.initialize() }, KnowledgeService, ObsidianImportService,
 ] })
 class AppModule {}
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.useBodyParser('json', { limit: '10mb' });
   app.enableCors({ origin: process.env.WEB_ORIGIN ?? 'http://localhost:5173' });
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }));
   app.enableShutdownHooks();

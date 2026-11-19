@@ -6,6 +6,7 @@ import { Overview, Status } from './Overview';
 import { Editor, Modal } from './Forms';
 import { CardView } from './CardView';
 import { Review } from './Review';
+import { ImportObsidian } from './ImportObsidian';
 import type { Snapshot, Card, Category } from './types';
 import s from './app.module.css';
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
   const [editor, setEditor] = useState<{ type: 'card' | 'category'; item?: Card | Category } | null>(null);
   const [session, setSession] = useState<Card[] | null>(null);
   const [queueOpen, setQueueOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const version = useRef(0);
@@ -36,7 +38,7 @@ export default function App() {
     else { await load(); }
   }
   return <div className={s.app}>
-    {data ? <Sidebar data={data} categoryId={categoryId} cardId={cardId} onCategory={selectCategory} onCard={c => setCardId(c.id)} onCreate={type => setEditor({ type })}/> : <aside className={s.sidebar}><h2>RepeatMe</h2><p className={s.muted}>Карта ваших знаний</p></aside>}
+    {data ? <Sidebar data={data} categoryId={categoryId} cardId={cardId} onCategory={selectCategory} onCard={c => setCardId(c.id)} onCreate={type => setEditor({ type })} onImport={() => setImportOpen(true)} importDisabled={!!session}/> : <aside className={s.sidebar}><h2>RepeatMe</h2><p className={s.muted}>Карта ваших знаний</p></aside>}
     <main className={s.main}><header className={s.topbar}><div><BookOpen size={16}/>Моя карта <ChevronRight size={12}/><span>{session ? 'Повторение' : card ? 'Карточка' : category?.name ?? 'Обзор'}</span></div><div><span className={s.localDot}/>Личное пространство <span className={s.avatar}>Я</span></div></header>
       <div className={s.content}>{error && <div className={s.error} role="alert">{error}<button onClick={() => void load()}><RefreshCw size={16}/>Повторить</button>{categoryId && <button onClick={() => selectCategory(null)}>В общий обзор</button>}</div>}
       {!data ? <section className={s.empty}><h1>{loading ? 'Открываем вашу карту…' : 'Не удалось загрузить карту'}</h1><p className={s.muted}>Для работы нужны запущенные API и PostgreSQL.</p></section> : session ? <Review cards={session} onExit={() => { setSession(null); void load(); }}/>
@@ -44,6 +46,7 @@ export default function App() {
       </div><footer className={s.footer}>RepeatMe <span>Учитесь новому. Возвращайтесь к важному.</span><span>Europe/Moscow · МСК</span></footer>
     </main>
     {editor && data && <Editor type={editor.type} item={editor.item} categories={data.categories} parentId={categoryId} onClose={() => setEditor(null)} onSaved={saved}/>}
+    {importOpen && data && <ImportObsidian categories={data.categories} initialParent={categoryId} onClose={() => setImportOpen(false)} onImported={load}/>}
     {queueOpen && data && <Modal title="Очередь повторения" onClose={() => setQueueOpen(false)}><p className={s.muted}>Сначала забытые, затем новые и остальные карточки.</p><div className={s.queueList}>{data.queue.map((id, i) => { const c = data.cards.find(c => c.id === id)!; return <div key={id}><span>{i + 1}.</span><strong>{c.title}</strong><Status card={c}/></div>; })}</div>{!data.queue.length && <p>В этой области пока нет карточек к повторению.</p>}<button className={s.primary} disabled={!data.queue.length || loading || !!error} onClick={start}>Начать повторение<ArrowRight size={17}/></button></Modal>}
   </div>;
 }

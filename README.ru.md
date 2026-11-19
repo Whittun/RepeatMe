@@ -35,11 +35,13 @@ npm run dev
 
 ```powershell
 npm run build             # Сборка frontend и backend
-npm test                  # Правила повторения и даты
+npm test                  # Повторения, даты, чтение папок и ZIP
 npm run test:integration  # Нужна работающая БД; создаётся отдельная тестовая БД
 npm run test:http         # Нужен запущенный API; тестовые объекты очищаются
 ```
 
-Настройки подключения — в корневом `.env`. При изменении `PORT` API обновите прокси в `apps/web/vite.config.ts`.
+Настройки подключения — в корневом `.env`. Vite читает `PORT` API из того же файла; после изменения перезапустите `npm run dev`. Если Windows запрещает порт 3001 с ошибкой `EACCES`, укажите в `.env` доступный порт, например 3101.
+
+Кнопка **«Импорт из Obsidian»** в боковой панели открывает выбор папки Vault или ZIP, категорий и заметок. [Инструкция по импорту](docs/obsidian-import.ru.md).
 
 Подробнее: [документация разработки](docs/development.ru.md), [ТЗ MVP](docs/RepeatMe_MVP_spec.ru.md), [визуальный стиль и референсы](docs/design.ru.md).

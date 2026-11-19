@@ -8,7 +8,7 @@ import s from './app.module.css';
 export function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => { ref.current?.showModal(); }, []);
-  return <dialog ref={ref} className={s.modal} onCancel={e => { e.preventDefault(); onClose(); }}><div className={s.modalHeader}><h2>{title}</h2><button onClick={onClose} aria-label="Закрыть"><X size={20}/></button></div>{children}</dialog>;
+  return <dialog ref={ref} className={s.modal} aria-label={title} onCancel={e => { e.preventDefault(); onClose(); }}><div className={s.modalHeader}><h2>{title}</h2><button onClick={onClose} aria-label="Закрыть"><X size={20}/></button></div>{children}</dialog>;
 }
 export function Editor({ type, item, categories, parentId, onClose, onSaved }: { type: 'card' | 'category'; item?: Card | Category; categories: Category[]; parentId: string | null; onClose: () => void; onSaved: () => Promise<void> }) {
   const card = type === 'card' ? item as Card | undefined : undefined;

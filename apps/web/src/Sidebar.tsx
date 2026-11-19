@@ -3,9 +3,10 @@ import { BookOpen, ChevronDown, ChevronRight, Folder, LayoutDashboard, Plus, Lay
 import type { Snapshot, Card, Category } from './types';
 import { labels } from './types';
 import { Distribution } from './Overview';
+import { ObsidianIcon } from './ObsidianIcon';
 import s from './app.module.css';
-interface Props { data: Snapshot; categoryId: string | null; cardId: string | null; onCategory: (id: string | null) => void; onCard: (card: Card) => void; onCreate: (type: 'card' | 'category') => void }
-export function Sidebar({ data, categoryId, cardId, onCategory, onCard, onCreate }: Props) {
+interface Props { data: Snapshot; categoryId: string | null; cardId: string | null; onCategory: (id: string | null) => void; onCard: (card: Card) => void; onCreate: (type: 'card' | 'category') => void; onImport: () => void; importDisabled?: boolean }
+export function Sidebar({ data, categoryId, cardId, onCategory, onCard, onCreate, onImport, importDisabled }: Props) {
   const [closed, setClosed] = useState<Set<string>>(new Set());
   const toggle = (id: string) => setClosed(old => { const next = new Set(old); if (next.has(id)) next.delete(id); else next.add(id); return next; });
   function cardRow(card: Card) {
@@ -30,6 +31,7 @@ export function Sidebar({ data, categoryId, cardId, onCategory, onCard, onCreate
     <div className={s.sidebarTitle}>МОЯ КАРТА <button aria-label="Добавить категорию" onClick={() => onCreate('category')}><Plus size={17}/></button></div>
     <nav aria-label="Карта знаний" className={s.tree}>{data.categories.filter(c => !c.parentId).map(branch)}{data.cards.filter(c => !c.categoryId).map(cardRow)}{!data.cards.length && !data.categories.length && <p className={s.muted}>Здесь появятся ваши темы</p>}</nav>
     <button className={s.addCard} onClick={() => onCreate('card')}><Plus size={18}/>Добавить карточку</button>
+    <button className={s.importButton} onClick={onImport} disabled={importDisabled}><ObsidianIcon/>Импорт из Obsidian</button>
     <div className={s.sidebarFoot}><BookOpen size={22}/><div>НЕ ДАЙ ЗНАНИЯМ ИСЧЕЗНУТЬ</div></div>
   </aside>;
 }

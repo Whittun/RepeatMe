@@ -213,3 +213,37 @@
 }
 .modalHeader h2 { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 1000px) { .brand .beta { display: none; } }
+.importButton { margin: -8px 0 22px; padding: 11px 8px; font-size: 12px; color: #ded1eb; border: 2px solid #675276; background: #393044; box-shadow: 3px 3px 0 #171420; }
+.importButton:hover:not(:disabled) { background: #51405e; }
+.importButton img { object-fit: contain; flex-shrink: 0; }
+.importer { display: flex; flex-direction: column; gap: 18px; }
+.importer > p { margin: 0; font-size: 12px; }
+.importPickers { display: flex; gap: 12px; flex-wrap: wrap; }
+.importOptions { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.importOptions label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; min-width: 0; }
+.importOptions small { color: #947f8b; font-size: 10px; font-weight: 400; }
+.importFullWidth { grid-column: 1 / -1; }
+.importToolbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; border-top: 1px solid #d8c7b9; padding-top: 15px; }
+.importToolbar > span { font-size: 12px; font-weight: 600; flex: 1; overflow-wrap: anywhere; }
+.importTree { overflow: auto; max-height: 320px; min-height: 100px; padding: 12px; margin: 0; border: 2px solid #b9a5af; background: #fffaf1; min-width: 0; }
+.importRow { display: flex; align-items: center; gap: 8px; min-height: 36px; font-size: 12px; }
+.importRow > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.importRow > svg { color: #a17450; }
+.importRow .textButton { font-size: 9px; white-space: nowrap; padding-left: 8px; }
+.importChildren { margin-left: 19px; padding-left: 12px; border-left: 1px solid #d9cabb; }
+.importExpand { border: 0; background: transparent; padding: 4px 0; box-shadow: none; }
+.importNote { padding-left: 20px; cursor: pointer; }
+.importRow input[type=checkbox], .importCheckbox input[type=checkbox] { appearance: auto; width: 16px; height: 16px; margin: 0; padding: 0; flex-shrink: 0; box-shadow: none; accent-color: #b46b38; }
+.importCheckbox { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.importHint { font-size: 10px; color: #8d7883; margin: -6px 0 0; }
+.importFooter { display: flex; align-items: center; justify-content: space-between; gap: 15px; border-top: 1px solid #d9cabb; padding-top: 18px; }
+.importFooter > span { color: #8b707b; font-size: 11px; }
+.importSuccess { font-size: 16px; font-weight: 600; color: #53775a; }
+@media(max-width: 580px) {
+  .importButton { display: flex; width: 100%; margin: 15px 0 0; }
+  .importOptions { grid-template-columns: 1fr; }
+  .importFooter { flex-direction: column; align-items: stretch; }
+  .importRow { flex-wrap: wrap; }
+  .importRow .textButton { margin-left: 20px; }
+  .importChildren { margin-left: 8px; padding-left: 8px; }
+}
